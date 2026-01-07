@@ -83,9 +83,9 @@ const InventoryControl: React.FC = () => {
       <div className="inventory-control">
         <div className="inventory-control-wrapper">
           <div className="inventory-control-input-wrapper">
-            <div className="inventory-control-logo-wrapper">
+            { Logo && (<div className="inventory-control-logo-wrapper">
               <img className="inventory-control-logo" src={Logo} />
-            </div>
+            </div> )}
             <input
               className="inventory-control-input"
               type="number"
