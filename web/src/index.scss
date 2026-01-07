@@ -139,7 +139,7 @@ button:active {
   .inventory-control-input {
     transition: 200ms;
     padding: 16px 8px;
-    border-radius: 2.5%;
+    border-radius: 2px;
     font-family: $mainFont;
     font-size: 16px;
     text-align: center;
@@ -158,7 +158,7 @@ button:active {
     background-color: $secondaryColor;
     transition: 200ms;
     padding: 12px 8px;
-    border-radius: 2.5%;
+    border-radius: 2px;
     border: none;
     text-transform: uppercase;
     font-family: $mainFont;
@@ -552,3 +552,53 @@ button:active {
   transform: translateY(200px);
   transition: all 200ms;
 }
+.inventory-control-amount-buttons {
+  display: flex; /* Flexboxを使用 */
+  justify-content: space-between; /* ボタンを均等に配置 */
+  gap: 10px; /* ボタン間の隙間を設定 */
+  width: 100%;
+}
+
+.inventory-control-amount-button {
+  font-size: 14px;
+  color: #fff;
+  background-color: $secondaryColor;
+  transition: 200ms;
+  padding: 8px 16px; /* 横幅を少し広げてボタンに余裕を持たせる */
+  border-radius: 2.5%;
+  border: none;
+  text-transform: uppercase;
+  font-family: $mainFont;
+  font-weight: 500;
+  width: 23%; /* ボタンを横並びにして、親要素にフィットさせる */
+  text-align: center; /* ボタン内のテキストを中央揃えにする */
+}
+
+.inventory-control-amount-button:hover {
+  background-color: $secondaryColorDark;
+}
+
+  .inventory-control-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .inventory-control-button-wrapper {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .inventory-control-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .inventory-control-logo {
+    max-width: 180px;
+  }

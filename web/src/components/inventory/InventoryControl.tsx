@@ -8,6 +8,7 @@ import { onGive } from '../../dnd/onGive';
 import { fetchNui } from '../../utils/fetchNui';
 import { Locale } from '../../store/locale';
 import UsefulControls from './UsefulControls';
+import { Logo } from '../../store/logo';
 
 const InventoryControl: React.FC = () => {
   const itemAmount = useAppSelector(selectItemAmount);
@@ -15,6 +16,47 @@ const InventoryControl: React.FC = () => {
 
   const [infoVisible, setInfoVisible] = useState(false);
 
+    // 数量追加関数
+  const addAmount = (amount: number) => {
+    dispatch(setItemAmount(itemAmount + amount));
+  };
+
+  // 数量リセット関数
+  const resetAmount = () => {
+    dispatch(setItemAmount(0));
+  };
+
+  const AddButton: React.FC<{ amount: number }> = ({ amount }) => {
+    const addAmount = () => {
+      dispatch(setItemAmount(itemAmount + amount));
+    };
+
+    return (
+      <button className="inventory-control-button" onClick={addAmount}>
+        +
+      </button>
+    );
+  };
+
+    const RemoveButton: React.FC<{ amount: number }> = ({ amount }) => {
+      const removeAmount = () => {
+        if (itemAmount - amount < 0) {
+          dispatch(setItemAmount(0));
+        } else {
+          dispatch(setItemAmount(itemAmount - amount));
+        }
+    };
+
+    return (
+      <button className="inventory-control-button" onClick={removeAmount}>
+        -
+      </button>
+    );
+  };
+
+  
+
+  
   const [, use] = useDrop<DragSource, void, any>(() => ({
     accept: 'SLOT',
     drop: (source) => {
@@ -40,13 +82,38 @@ const InventoryControl: React.FC = () => {
       <UsefulControls infoVisible={infoVisible} setInfoVisible={setInfoVisible} />
       <div className="inventory-control">
         <div className="inventory-control-wrapper">
-          <input
-            className="inventory-control-input"
-            type="number"
-            defaultValue={itemAmount}
-            onChange={inputHandler}
-            min={0}
-          />
+          <div className="inventory-control-input-wrapper">
+            <div className="inventory-control-logo-wrapper">
+              <img className="inventory-control-logo" src={Logo} />
+            </div>
+            <input
+              className="inventory-control-input"
+              type="number"
+              value={itemAmount}
+              onChange={inputHandler}
+              min={0}
+            />
+            <div className="inventory-control-button-wrapper">
+              <button className="inventory-control-button" onClick={() => dispatch(setItemAmount(0))}>
+                {Locale.ui_reset || 'Reset'}
+              </button>
+            </div>
+            <div className="inventory-control-button-wrapper">
+              {[1, 10, 100].map((value, index) => (
+                <AddButton key={index} amount={value} />
+              ))}
+            </div>
+            <div className="inventory-control-button-wrapper">
+              {[1, 10, 100].map((value, index) => (
+                <button className="inventory-control-button">{value}</button>
+              ))}
+            </div>
+            <div className="inventory-control-button-wrapper">
+              {[1, 10, 100].map((value, index) => (
+                <RemoveButton key={index} amount={value} />
+              ))}
+            </div>
+          </div>
           <button className="inventory-control-button" ref={use}>
             {Locale.ui_use || 'Use'}
           </button>

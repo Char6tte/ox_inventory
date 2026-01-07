@@ -11,6 +11,7 @@ import DragPreview from './components/utils/DragPreview';
 import { fetchNui } from './utils/fetchNui';
 import { useDragDropManager } from 'react-dnd';
 import KeyPress from './components/utils/KeyPress';
+import { setLogo } from './store/logo';
 
 debugData([
   {
@@ -96,11 +97,13 @@ const App: React.FC = () => {
     items: typeof Items;
     leftInventory: Inventory;
     imagepath: string;
-  }>('init', ({ locale, items, leftInventory, imagepath }) => {
+    logo?: string;
+  }>('init', ({ locale, items, leftInventory, imagepath, logo }) => {
     for (const name in locale) Locale[name] = locale[name];
     for (const name in items) Items[name] = items[name];
 
     setImagePath(imagepath);
+    setLogo(logo || '');
     dispatch(setupInventory({ leftInventory }));
   });
 
